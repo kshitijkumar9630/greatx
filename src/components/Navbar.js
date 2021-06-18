@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
-//page imports
-import HomePage from './pages/HomePage';
 
-//icon imports
-import Telegram from './assets/icons/telegram.gif';
-import Facebook from './assets/icons/facebook.gif';
-import Twitter from './assets/icons/twitter.gif';
-
-export class App extends Component {
+export class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -30,22 +22,24 @@ export class App extends Component {
 				position: 'absolute',
 				top: 0,
 				left: 0,
-				zIndex: '1',
-				// opacity: 0.9,
+				zIndex: '99',
+				opacity: 0.9,
 				display: 'flex',
 				alignItems: 'center',
-				background: '#263238',
+				background: 'black',
 				width: '100%',
 				color: 'white',
-				padding: '1rem',
+				fontFamily: 'Lobster',
 			},
 			logo: {
 				margin: '0 auto',
 			},
 			body: {
-				paddingTop: '4rem',
-				width: '100%',
-				height: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				width: '100vw',
+				height: '100vh',
 				filter: this.state.menuOpen ? 'blur(2px)' : null,
 				transition: 'filter 0.5s ease',
 			},
@@ -68,18 +62,8 @@ export class App extends Component {
 		return (
 			<div>
 				<div style={styles.container}>
-					<div style={styles.logo}>
-						<div
-							style={{
-								margin: '0px 50px 0 120px',
-								fontSize: 'calc(0.5rem + 0.3vw)',
-							}}
-						>
-							<h6 style={{ color: 'white' }}>
-								PRINCIPAL PROCTED. &nbsp;ASSETS BACKED. &nbsp;SMART SECURITIES.{' '}
-							</h6>
-						</div>
-					</div>
+					{' '}
+					<div style={styles.logo}>PRINCIPAL PROCTED ASSETS BACKED </div>
 					<MenuButton
 						open={this.state.menuOpen}
 						onClick={() => this.handleMenuClick()}
@@ -87,21 +71,7 @@ export class App extends Component {
 					/>
 				</div>
 				<Menu open={this.state.menuOpen}>{menuItems}</Menu>
-				<div
-					style={{
-						position: 'absolute',
-						height: '150px',
-						width: '100px',
-						background: '#e5b574',
-						zIndex: '2',
-						marginTop: '20px',
-						marginLeft: '5%',
-					}}
-				>
-					GreatX
-				</div>
 				<div style={styles.body}>
-					<HomePage />
 					<Footer name="Menu" />
 				</div>
 			</div>
@@ -130,14 +100,22 @@ class MenuItem extends React.Component {
 				animationDelay: this.props.delay,
 			},
 			menuItem: {
-				fontSize: '1rem',
-				textAlign: 'center',
+				fontFamily: `'Open Sans', sans-serif`,
+				fontSize: '1.2rem',
 				padding: '1rem 0',
 				margin: '0 5%',
 				cursor: 'pointer',
-				color: this.state.hover ? 'grey' : '#fafafa',
+				color: this.state.hover ? 'gray' : '#fafafa',
 				transition: 'color 0.2s ease-in-out',
 				animation: '0.5s slideIn forwards',
+				animationDelay: this.props.delay,
+			},
+			line: {
+				width: '90%',
+				height: '1px',
+				background: 'gray',
+				margin: '0 auto',
+				animation: '0.5s shrink forwards',
 				animationDelay: this.props.delay,
 			},
 		};
@@ -180,16 +158,16 @@ class Menu extends React.Component {
 		const styles = {
 			container: {
 				position: 'absolute',
-				top: '4rem',
+				top: 0,
 				left: 0,
-				height: this.state.open ? '50%' : 0,
+				height: this.state.open ? '100%' : 0,
 				width: '100vw',
 				display: 'flex',
 				flexDirection: 'column',
-				background: '#263238',
+				background: 'black',
 				opacity: 0.95,
 				color: '#fafafa',
-				transition: 'height 0.5s ease',
+				transition: 'height 0.3s ease',
 				zIndex: 2,
 			},
 			menuList: {
@@ -282,90 +260,33 @@ class MenuButton extends React.Component {
 function Footer(props) {
 	const styles = {
 		footer: {
-			position: 'relative',
+			position: 'absolute',
 			bottom: 0,
 			width: '100%',
-			marginTop: '3rem',
-			padding: '3rem',
-			color: 'grey',
+			marginTop: '1rem',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			color: props.color,
 		},
-
+		line: {
+			height: '1px',
+			width: '90%',
+			background: props.color,
+		},
 		text: {
 			padding: '0.5rem',
-			display: 'flex',
-			flexDirection: 'row',
 		},
 	};
 
 	return (
-		<Container>
-			<div style={styles.footer}>
-				<Row>
-					<Col xs={12} md={12} sm={12} xl={9}>
-						<h3 className="m-2 mb-4">Navigation</h3>
-						<Row>
-							<Col className="m-2" xs={12} md={3} sm={12} xl={3}>
-								<h6>Participate with us:</h6>
-								Overview
-								<br />
-								How it works
-								<br />
-								Own a hotel room
-							</Col>
-							<Col className="m-2" xs={12} md={3} sm={12} xl={3}>
-								<h6>New Age Wealth:</h6>
-								Digital Assets
-								<br />
-								How it works
-								<br />
-								GREATX
-							</Col>
-							<Col className="m-2" xs={12} md={3} sm={12} xl={3}>
-								for sponsors
-								<br />
-								for Institution
-								<br />
-								Our Team
-								<br />
-								Connect With Us
-							</Col>
-						</Row>
-					</Col>
-					<Col xs={12} md={12} sm={12} xl={3}>
-						<Row>
-							<div className="m-3 text-center">
-								<img src={Telegram} style={{ height: '50px' }} />
-								<img src={Facebook} style={{ height: '50px' }} />
-								<img src={Twitter} style={{ height: '50px' }} />
-							</div>
-							<div className="m-3 text-center">
-								<button
-									style={{
-										padding: '10px 30px',
-										borderRadius: '30px',
-										border: 'none',
-										background: 'orange',
-										textTransform: 'uppercase',
-										color:'white'
-									}}
-								>
-									chatbot
-								</button>
-							</div>
-						</Row>
-					</Col>
-				</Row>
-
-				<div style={styles.text}>
-					<div>
-						&copy; 2021 GreatX Technologies | Privacy Policy | Terms &amp;
-						condition | Confidentiality | Disclamair | This site is best viewed
-						in Chrome Firefox and Safari.
-					</div>
-					<div></div>
-				</div>
+		<div style={styles.footer}>
+			<div style={styles.line}></div>
+			<div style={styles.text}>
+				{props.title} created by Smashcat &copy; 2017
 			</div>
-		</Container>
+		</div>
 	);
 }
 
@@ -374,16 +295,15 @@ class Main extends React.Component {
 	render() {
 		const styles = {
 			main: {
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
 				height: '100vh',
 			},
 		};
 
-		return (
-			<div style={styles.main}>
-				<App />
-			</div>
-		);
+		return <div style={styles.main}>fcghfhfgh</div>;
 	}
 }
 
-export default App;
+export default Navbar;
